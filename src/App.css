@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap');
+
+*,*::before,*::after{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body{
+  width:100%;
+  font-family: 'PT Serif', serif;
+}
+
+li{
+  list-style: none;
+  cursor: pointer;
+  color:  #FF5C58;
+}
+
+header{
+  width:85%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+  box-shadow: 0px 1px 0px 0px #3a393952 ;
+  /* background-color: #FF5C58; */
+  padding: 1em;
+}
+
+
+header ul{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 23%;
+}
+
+header>div img{
+  width: 20em;
+  /* height: 100px; */
+  aspect-ratio: 1/1;
+}
+header ul li{
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-family: 'PT Serif', serif;
+}
+
+header ul li:hover{
+  color: mediumslateblue;
+}
+
+.container{
+  margin-inline: auto;
+  margin-top: 2em;
+}
+
+.searchbar{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'PT Serif', serif;
+}
+
+.searchbar input{
+  height: 2rem;
+  padding: 1rem;
+  border-radius: 3px;
+  outline: none;
+  margin-block: 1em;
+   font-family: 'PT Serif', serif;
+}
+
+.about{
+  align-items: center;
+}
+
+.about-container{
+  width:90%;
+  margin-inline:auto;
+  margin-top:14px;
+}
+
+.about-container > p{
+  font-size: 1.5rem;
+}
+
+.link{
+  color:inherit;
+  text-decoration: inherit;
+}
+
+.a3{
+  text-align: center;
+}
+
+.data{
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.a1{
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.a2{
+  font-size: 20px;
+}
+
+.a4{
+  padding-left: 165px;
+  padding-right: 165px;
+}
+
+.a5{
+  padding-top: 20px;
+  padding-left: 110px;
+  padding-right: 110px;
+}
+
+.row{
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: flex;
+
+}
+
+.space{
+  padding: 20px;
+}
+
+.space > img{
+  object-fit: contain;
+}
+
+.a6{
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+}
