@@ -55,3 +55,25 @@ export const deleteRecipe = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updateRecipe = async (req, res) => {
+  try {
+    const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.recipeId, {
+      $set: {
+        recipeName: req.body.recipeName,
+        recipeImage: req.body.recipeImage,
+        recipeIngredients: req.body.recipeIngredients,
+        recipePrepTime: req.body.recipePrepTime,
+        recipeMethod: req.body.recipeMethod,
+        recipeSuggestion: req.body.recipeSuggestion,
+        category: req.body.category,
+      },
+    });
+    res.header("Access-Control-Allow-Origin", "*");
+    res
+      .status(200)
+      .json({ message: "Recipe Deleted successfully", data: updatedRecipe });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

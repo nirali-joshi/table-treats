@@ -14,9 +14,7 @@ const RecipeCard = ({ recipe, isFrom, categoryName, key, handleDelete }) => {
         <Link
           to={
             isFrom === "category"
-              ? `/category/${categoryName}/recipe/${recipeName
-                  .trim()
-                  .replace(/\s+/g, "-")}`
+              ? `/category/${categoryName}/recipe/${_id}`
               : `/recipes/${_id}`
           }
           style={{ textDecoration: "none", color: "inherit" }}
@@ -25,17 +23,15 @@ const RecipeCard = ({ recipe, isFrom, categoryName, key, handleDelete }) => {
             {isFrom === "home" ? category : recipeName}
           </Typography>
         </Link>
-        {isFrom !== "category" && (
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<FaTrash />}
-            size="small"
-            onClick={() => handleDelete(_id)}
-          >
-            Delete Recipe
-          </Button>
-        )}
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<FaTrash />}
+          size="small"
+          onClick={() => handleDelete(_id)}
+        >
+          Delete Recipe
+        </Button>
       </div>
     </div>
   );

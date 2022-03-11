@@ -12,7 +12,6 @@ const Recipes = (props) => {
   const [filteredData, setFilteredData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [recipeData, setRecipeData] = useState([]);
-  console.log(props);
 
   const getRecipesData = () => {
     props

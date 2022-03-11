@@ -10,13 +10,19 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { map } from "lodash";
-import { saveNewRecipe } from "../actions";
+import { saveNewRecipe, updateRecipe } from "../actions";
 import { connect } from "react-redux";
 import { FaPlus, FaSave } from "react-icons/fa";
 
 const AddRecipe = (props) => {
-  const [recipeSteps, setRecipeSteps] = useState([{ step: 1, stepDetail: "" }]);
-  const [newRecipe, setNewRecipe] = useState({});
+  const [recipeSteps, setRecipeSteps] = useState(
+    props && props.recipe
+      ? props.recipe.recipeMethod
+      : [{ step: 1, stepDetail: "" }]
+  );
+  const [newRecipe, setNewRecipe] = useState(
+    props && props.recipe ? props.recipe : {}
+  );
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: "absolute",
@@ -49,11 +55,46 @@ const AddRecipe = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (props.isFrom !== "updateRecipe") {
+      props
+        .saveNewRecipe({ ...newRecipe, recipeMethod: [...recipeSteps] })
+        .then((resp) => {
+          if (resp) {
+            props.getRecipesData();
+            handleClose();
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      handleUpdate();
+    }
+  };
+
+  const handleUpdate = () => {
+    const {
+      recipeName,
+      recipeImage,
+      recipeIngredients,
+      recipeMethod,
+      recipePrepTime,
+      recipeSuggestion,
+      category,
+      _id,
+    } = newRecipe;
+    const recipe = {
+      recipeName,
+      recipeImage,
+      recipeIngredients,
+      recipePrepTime,
+      recipeMethod,
+      recipeSuggestion,
+      category,
+    };
     props
-      .saveNewRecipe({ ...newRecipe, recipeMethod: [...recipeSteps] })
+      .updateRecipe(recipe, _id)
       .then((resp) => {
         if (resp) {
-          props.getRecipesData();
+          props.getRecipe(_id);
           handleClose();
         }
       })
@@ -209,6 +250,7 @@ const AddRecipe = (props) => {
 const mapStateToProps = () => ({});
 const mapDispatchToProps = {
   saveNewRecipe,
+  updateRecipe,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);

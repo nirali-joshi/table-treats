@@ -82,3 +82,22 @@ export function deleteRecipe(recipeId) {
         }
       });
 }
+
+export function updateRecipe(recipe, recipeId) {
+  return () =>
+    axios({
+      method: "put",
+      url: `http://localhost:5000/categories/recipe/${recipeId}`,
+      data: recipe,
+    })
+      .then((resp) => {
+        if (resp) {
+          return resp;
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          return err;
+        }
+      });
+}

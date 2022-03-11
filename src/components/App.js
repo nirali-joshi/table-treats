@@ -31,8 +31,8 @@ function App() {
           element={<RecipeDetail recipeData={data} />}
         />
         <Route
-          path="/category/:categoryName/recipe/:recipeName"
-          element={<RecipeDetail recipeData={data} />}
+          path="/category/:categoryName/recipe/:recipeId"
+          element={<RecipeDetail recipeData={data} isFrom="category" />}
         />
         <Route path="/category/:categoryName" element={<Category />} />
       </Routes>

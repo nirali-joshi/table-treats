@@ -1,23 +1,32 @@
 import { Paper, Typography } from "@material-ui/core";
 import { map, size } from "lodash";
-import React, { Fragment } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { categoryData } from "../categoryData";
+import React, { Fragment, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import { FaHeartBroken } from "react-icons/fa";
+import { connect } from "react-redux";
+import { deleteRecipe, getRecipes } from "../actions";
 
-const Category = () => {
+const Category = (props) => {
+  const [recipeData, setRecipeData] = useState([]);
+
   const catName = useParams().categoryName.replace(/-/g, " ");
   console.log(catName);
-  const data = categoryData.find((item) => item.categoryName.includes(catName));
-  console.log(data);
-  const { recipes } = data || {};
-  console.log(recipes);
-  const recipeData = map(recipes, (item, index) => ({
-    ...item,
-    recipeId: index + 1,
-  }));
-  console.log(recipeData);
+
+  const getRecipesData = () => {
+    props
+      .getRecipes()
+      .then((resp) => {
+        if (resp) {
+          setRecipeData(resp.filter((item) => item.category === catName));
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getRecipesData();
+  }, []);
 
   return (
     <Fragment>
@@ -26,7 +35,7 @@ const Category = () => {
           {map(recipeData, (recipe) => (
             <RecipeCard
               recipe={recipe}
-              key={recipe.recipeId}
+              key={recipe._id}
               isFrom="category"
               categoryName={useParams().categoryName}
             />
@@ -66,5 +75,10 @@ const Category = () => {
     </Fragment>
   );
 };
+const mapStateToProps = () => ({});
+const mapDispatchToProps = {
+  getRecipes,
+  deleteRecipe,
+};
 
-export default Category;
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
