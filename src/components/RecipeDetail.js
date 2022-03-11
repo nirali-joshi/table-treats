@@ -6,6 +6,7 @@ import { categoryData } from "../categoryData";
 const RecipeDetail = (props) => {
   console.log(props);
   const { recipeId, categoryName, recipeName } = useParams();
+  console.log(recipeId);
   const found = props.recipeData.find(
     (recipe) => recipe.recipeId === parseInt(recipeId)
   );

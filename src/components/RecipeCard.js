@@ -1,25 +1,42 @@
+import { Button, Typography } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
 
-const RecipeCard = ({ recipe, isFrom, categoryName }) => {
+const RecipeCard = ({ recipe, isFrom, categoryName, key, handleDelete }) => {
   console.log(recipe);
-  const { recipeImage, recipeName, recipeId, category } = recipe;
+  const { recipeImage, recipeName, _id, category } = recipe;
+
   return (
-    <div className="recipe-card">
+    <div className="recipe-card" key={key}>
       <img src={recipeImage} alt={recipeName} />
-      <Link
-        to={
-          isFrom === "category"
-            ? `/category/${categoryName}/recipe/${recipeName
-                .trim()
-                .replace(/\s+/g, "-")}`
-            : `/recipes/${recipeId}`
-        }
-      >
-        <div className="recipe-name">
-          <span>{isFrom === "home" ? category : recipeName}</span>
-        </div>
-      </Link>
+      <div className="recipe-name">
+        <Link
+          to={
+            isFrom === "category"
+              ? `/category/${categoryName}/recipe/${recipeName
+                  .trim()
+                  .replace(/\s+/g, "-")}`
+              : `/recipes/${_id}`
+          }
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Typography className="recipe-name-field">
+            {isFrom === "home" ? category : recipeName}
+          </Typography>
+        </Link>
+        {isFrom !== "category" && (
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<FaTrash />}
+            size="small"
+            onClick={() => handleDelete(_id)}
+          >
+            Delete Recipe
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

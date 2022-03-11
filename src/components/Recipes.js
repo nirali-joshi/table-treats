@@ -1,11 +1,33 @@
 import { size } from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import SearchBar from "./SearchBar";
+import { FaPlus } from "react-icons/fa";
+import AddRecipe from "./AddRecipe";
+import { connect } from "react-redux";
+import { deleteRecipe, getRecipes } from "../actions";
 
 const Recipes = (props) => {
-  const { recipeData, isFrom } = props;
+  const { isFrom } = props;
   const [filteredData, setFilteredData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [recipeData, setRecipeData] = useState([]);
+  console.log(props);
+
+  const getRecipesData = () => {
+    props
+      .getRecipes()
+      .then((resp) => {
+        if (resp) {
+          setRecipeData(resp);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getRecipesData();
+  }, []);
+
   const handleChange = ({ target: { value } }) => {
     const filteredData = recipeData.filter((item) =>
       item.recipeName
@@ -16,17 +38,68 @@ const Recipes = (props) => {
     );
     setFilteredData(filteredData);
   };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
   const data = size(filteredData) > 0 ? filteredData : recipeData;
+
+  const handleDelete = (recipeId) => {
+    props
+      .deleteRecipe(recipeId)
+      .then((resp) => {
+        if (resp) {
+          getRecipesData();
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
-    <div>
-      <SearchBar handleChange={handleChange} placeHolderText="Search Recipes" />
+    <div className="recipes-container">
+      <div className="subheader">
+        <div className="p-t-l-r-20-16 width-20">
+          <button
+            className="width-80 add-recipe-btn p-8"
+            onClick={() => setIsOpen(true)}
+          >
+            <FaPlus />
+            Post a Recipe
+          </button>
+        </div>
+        <SearchBar
+          handleChange={handleChange}
+          placeHolderText="Search Recipes"
+        />
+      </div>
+
       <div className="recipes">
         {data.map((recipe) => (
-          <RecipeCard recipe={recipe} isFrom={isFrom} key={recipe.recipeId} />
+          <RecipeCard
+            recipe={recipe}
+            isFrom={isFrom}
+            key={recipe.recipeId}
+            handleDelete={handleDelete}
+          />
         ))}
       </div>
+
+      {isOpen && (
+        <AddRecipe
+          isOpen={isOpen}
+          handleModalClose={handleModalClose}
+          getRecipesData={getRecipesData}
+        />
+      )}
     </div>
   );
 };
 
-export default Recipes;
+const mapStateToProps = () => ({});
+const mapDispatchToProps = {
+  getRecipes,
+  deleteRecipe,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

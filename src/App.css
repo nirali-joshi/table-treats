@@ -24,7 +24,7 @@ header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: #212121;
+  background-color: #272640;
   padding: 0.5em;
   align-items: center;
   box-shadow: 0px -4px 17px 10px #2c2e43;
@@ -35,6 +35,8 @@ header ul {
   justify-content: space-between;
   align-items: center;
   width: 23%;
+  margin: 0;
+  padding-left: 0;
 }
 
 header .logo img {
@@ -69,7 +71,7 @@ header ul li.active {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 20px 32px 0;
+  padding: 20px 16px 0;
 }
 .empty-container {
   width: 30%;
@@ -181,6 +183,10 @@ header ul li.active {
   transition: 0.5s ease;
   opacity: 0;
   text-align: center;
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .recipe-card:hover img,
@@ -193,17 +199,17 @@ header ul li.active {
   opacity: 1;
 }
 
-.recipe-name span,
-.category-name span {
+.recipe-name .recipe-name-field,
+.category-name .recipe-name-field {
   background-color: #494747;
   color: white;
   font-size: 16px;
-  padding: 16px 32px;
+  padding: 6px 16px;
   border-radius: 10px;
 }
 
-.recipe-name span:hover,
-.category-name span:hover {
+.recipe-name .recipe-name-field:hover,
+.category-name .recipe-name-field:hover {
   cursor: pointer;
 }
 
@@ -213,7 +219,7 @@ header ul li.active {
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 20rem;
   gap: 15px;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .logo {
@@ -243,4 +249,25 @@ header ul li.active {
   color: #68b28f;
   font-size: 14px;
   font-family: "Courgette", cursive;
+}
+
+.recipes-container .add-recipe-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background-color: #43aa8b;
+  color: #ffffff;
+  cursor: pointer;
+}
+.recipes-container .add-recipe-btn svg {
+  margin-right: 5px;
+}
+
+.recipes-container .subheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
