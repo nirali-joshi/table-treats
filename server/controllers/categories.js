@@ -47,7 +47,6 @@ export const getRecipeById = async (req, res) => {
 };
 
 export const deleteRecipe = async (req, res) => {
-  console.log(req.params.recipeId);
   try {
     const deletedRecipe = await Recipe.findByIdAndDelete(req.params.recipeId);
     res.header("Access-Control-Allow-Origin", "*");
